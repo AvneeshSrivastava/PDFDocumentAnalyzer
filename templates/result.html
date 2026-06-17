@@ -4,7 +4,6 @@
     <title>Extracted Text</title>
 </head>
 <body>
-
     <h1>Extracted Text</h1>
 
     <h3>PDF Information</h3>
@@ -14,6 +13,22 @@
     <p>Size: {{ metadata.file_size_mb }} MB</p>
 
     <pre>{{ extracted_text }}</pre>
+
+    <h3>Search Keyword</h3>
+
+<form action="/search" method="post">
+
+    <input
+        type="text"
+        name="keyword"
+        placeholder="Enter keyword"
+    >
+
+    <button type="submit">
+        Search
+    </button>
+
+</form>
 
     <a href="/">Upload Another PDF</a>
 
