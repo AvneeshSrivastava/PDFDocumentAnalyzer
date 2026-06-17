@@ -16,7 +16,10 @@ def home(request: Request):
     )
 
 @app.post("/upload")
-async def upload_pdf(pdf_file: UploadFile = File(...)):
+async def upload_pdf(
+        request: Request,
+        pdf_file: UploadFile = File(...)
+     ):
 
     content = await pdf_file.read()
 
@@ -29,7 +32,10 @@ async def upload_pdf(pdf_file: UploadFile = File(...)):
         file_path
     )
 
-    return {
-        "filename": pdf_file.filename,
-        "characters": len(extracted_text)
-    }
+    return templates.TemplateResponse(
+        request=request,
+        name="result.html",
+        context={
+            "extracted_text": extracted_text
+        }
+    )
