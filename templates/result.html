@@ -7,6 +7,12 @@
 
     <h1>Extracted Text</h1>
 
+    <h3>PDF Information</h3>
+
+    <p>Pages: {{ metadata.page_count }}</p>
+
+    <p>Size: {{ metadata.file_size_mb }} MB</p>
+
     <pre>{{ extracted_text }}</pre>
 
     <a href="/">Upload Another PDF</a>

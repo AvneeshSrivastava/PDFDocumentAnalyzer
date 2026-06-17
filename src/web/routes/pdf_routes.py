@@ -2,8 +2,10 @@ from fastapi import APIRouter, Request, UploadFile, File
 from fastapi.templating import Jinja2Templates
 
 from src.services.file_service import save_uploaded_file
-from src.services.pdf_service import extract_text_from_pdf
-
+from src.services.pdf_service import (
+    extract_text_from_pdf,
+    get_pdf_metadata
+)
 router = APIRouter()
 
 templates = Jinja2Templates(directory="templates")
@@ -32,10 +34,16 @@ async def upload_pdf(
         file_path
     )
 
+    # Get PDF metadata such as page count and file size
+    metadata = get_pdf_metadata(
+    file_path
+    )
+
     return templates.TemplateResponse(
         request=request,
         name="result.html",
         context={
-            "extracted_text": extracted_text
+            "extracted_text": extracted_text,
+            "metadata": metadata
         }
     )
