@@ -2,7 +2,7 @@ from fastapi import Form
 from src.services.search_service import count_keyword_occurrences
 from fastapi import APIRouter, Request, UploadFile, File
 from fastapi.templating import Jinja2Templates
-
+from src.logging import logger
 from src.services.file_service import save_uploaded_file
 from src.services.pdf_service import (
     extract_text_from_pdf,
@@ -10,13 +10,16 @@ from src.services.pdf_service import (
 )
 
 import re
+from src.config import settings
 
 
 # Temporary storage for extracted text
 pdf_text = ""
 router = APIRouter()
 
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(
+    directory=settings.TEMPLATE_FOLDER
+)
 
 @router.get("/")
 def home(reqest:Request):
@@ -31,6 +34,7 @@ async def upload_pdf(
     request: Request,
     pdf_file: UploadFile = File(...)
 ):
+    logger.info("PDF upload request received.")
     global pdf_text
     content = await pdf_file.read()
 
@@ -50,7 +54,7 @@ async def upload_pdf(
     metadata = get_pdf_metadata(
     file_path
     )
-
+    logger.info("Returning extraction result page.")
     return templates.TemplateResponse(
         request=request,
         name="result.html",
@@ -63,10 +67,12 @@ async def upload_pdf(
 @router.post("/search")
 def search_keyword(request: Request, keyword: str = Form(...)):
 
+    logger.info("Search Started.")
     count = count_keyword_occurrences(pdf_text, keyword)
 
     highlighted_text = highlight_text(pdf_text, keyword)
 
+    logger.info("Search completed.")
     return templates.TemplateResponse(
         request=request,
         name="search_result.html",
@@ -78,5 +84,7 @@ def search_keyword(request: Request, keyword: str = Form(...)):
     )
 
 def highlight_text(text: str, keyword: str):
+    logger.info("Text highliting Started.")
     pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    logger.info("Text highliting Completed.")
     return pattern.sub(r"<mark>\g<0></mark>", text)
