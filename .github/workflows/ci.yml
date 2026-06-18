@@ -48,4 +48,4 @@ jobs:
           pytest -v tests --tb=short
 
       - name: CI Completed
-        run: echo "All unit tests passed successfully.
+        run: echo "All unit tests passed successfully."
