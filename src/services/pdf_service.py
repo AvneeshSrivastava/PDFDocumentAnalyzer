@@ -1,12 +1,12 @@
 from pypdf import PdfReader
 import os
-
+from src.logging import logger
 
 def extract_text_from_pdf(file_path):
     """
     Extract all text from a PDF file.
     """
-
+    logger.info("Starting PDF text extraction.")
     # Open the PDF file
     reader = PdfReader(file_path)
 
@@ -23,6 +23,7 @@ def extract_text_from_pdf(file_path):
         if extracted:
             text += extracted
 
+    logger.info("PDF text extraction completed.")
     return text
 
 def get_pdf_metadata(file_path):
@@ -31,7 +32,7 @@ def get_pdf_metadata(file_path):
     - Number of pages
     - File size in MB
     """
-
+    logger.info("Reading PDF metadata.")
     # Open the PDF file
     reader = PdfReader(file_path)
 
@@ -43,7 +44,7 @@ def get_pdf_metadata(file_path):
         os.path.getsize(file_path) / (1024 * 1024),
         2
     )
-
+    logger.info("PDF metadata generated successfully.")
     # Return metadata as a dictionary
     return {
         "page_count": page_count,
