@@ -1,36 +1,57 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Extracted Text</title>
-</head>
-<body>
-    <h1>Extracted Text</h1>
+{% extends "base.html" %}
 
-    <h3>PDF Information</h3>
+{% block content %}
 
-    <p>Pages: {{ metadata.page_count }}</p>
+<div class="container-fluid">
 
-    <p>Size: {{ metadata.file_size_mb }} MB</p>
+    <h2 class="mb-4">📊 Document Analysis</h2>
 
-    <pre>{{ extracted_text }}</pre>
+    <div class="row g-3">
 
-    <h3>Search Keyword</h3>
+        <!-- LEFT PANEL -->
+        <div class="col-lg-4 col-12">
 
-<form action="/search" method="post">
+            <div class="card p-3 mb-3 shadow-sm">
+                <h5>PDF Info</h5>
+                <p>Pages: {{ metadata.page_count }}</p>
+                <p>Size: {{ metadata.file_size_mb }} MB</p>
+            </div>
 
-    <input
-        type="text"
-        name="keyword"
-        placeholder="Enter keyword"
-    >
+            <div class="card p-3 shadow-sm">
+                <h5>Keyword Search</h5>
 
-    <button type="submit">
-        Search
-    </button>
+                <form action="/search" method="post">
+                    <input class="form-control mb-2"
+                           name="keyword"
+                           placeholder="Search keyword">
 
-</form>
+                    <button class="btn btn-primary w-100">
+                        Search
+                    </button>
+                </form>
 
-    <a href="/">Upload Another PDF</a>
+            </div>
 
-</body>
-</html>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="col-lg-8 col-12">
+
+            <div class="card p-3 shadow-sm" style="height: 75vh; overflow-y: auto;">
+
+                <h5>Extracted Text</h5>
+                <hr>
+
+                <div style="white-space: pre-wrap;">
+                    {{ extracted_text }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

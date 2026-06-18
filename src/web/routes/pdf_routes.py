@@ -9,6 +9,9 @@ from src.services.pdf_service import (
     get_pdf_metadata
 )
 
+import re
+
+
 # Temporary storage for extracted text
 pdf_text = ""
 router = APIRouter()
@@ -58,17 +61,22 @@ async def upload_pdf(
     )
 
 @router.post("/search")
-def search_keyword(request:Request, keyword : str = Form(...)):
-    count = count_keyword_occurrences(
-        pdf_text,
-        keyword
-    )
+def search_keyword(request: Request, keyword: str = Form(...)):
+
+    count = count_keyword_occurrences(pdf_text, keyword)
+
+    highlighted_text = highlight_text(pdf_text, keyword)
 
     return templates.TemplateResponse(
         request=request,
         name="search_result.html",
         context={
             "keyword": keyword,
-            "count": count
+            "count": count,
+            "highlighted_text": highlighted_text
         }
     )
+
+def highlight_text(text: str, keyword: str):
+    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    return pattern.sub(r"<mark>\g<0></mark>", text)

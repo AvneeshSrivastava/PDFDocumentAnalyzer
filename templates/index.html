@@ -1,14 +1,26 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PDF Document Analyzer</title>
-</head>
-<body>
-    <h1>PDF Document Analyzer</h1>
+{% extends "base.html" %}
 
-    <form action="/upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="pdf_file">
-        <button type="submit">Upload PDF</button>
-    </form>
-</body>
-</html>
+{% block content %}
+
+<div class="container">
+
+    <h2 class="mb-4">Upload PDF</h2>
+
+    <div class="card shadow-sm p-4" style="max-width: 600px;">
+
+        <form action="/upload" method="post" enctype="multipart/form-data">
+
+            <label class="form-label">Select PDF</label>
+            <input class="form-control mb-3" type="file" name="pdf_file">
+
+            <button class="btn btn-primary w-100">
+                Upload & Analyze
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
