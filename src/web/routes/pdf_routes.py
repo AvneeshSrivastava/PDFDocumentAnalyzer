@@ -11,6 +11,7 @@ from src.services.pdf_service import (
 
 import re
 from src.config import settings
+from src.validators import validate_pdf
 
 
 # Temporary storage for extracted text
@@ -35,9 +36,12 @@ async def upload_pdf(
     pdf_file: UploadFile = File(...)
 ):
     logger.info("PDF upload request received.")
-    global pdf_text
     content = await pdf_file.read()
-
+    validate_pdf(
+    uploaded_file=pdf_file,
+    content=content
+    )
+    global pdf_text
     file_path = save_uploaded_file(
         pdf_file.filename,
         content

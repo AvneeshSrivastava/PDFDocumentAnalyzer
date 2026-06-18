@@ -1,16 +1,64 @@
-venv/
+# -----------------------------
+# Python
+# -----------------------------
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
 
-# Ignore uploaded/input files
-data/input/
+# Virtual Environment
+venv/
+.env
+.env.*
 
-# Ignore exported/output files
-data/output/
+# -----------------------------
+# IDE
+# -----------------------------
+.vscode/
+.idea/
 
-# Keep folder structure
+# -----------------------------
+# Testing
+# -----------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+
+# -----------------------------
+# Logs
+# -----------------------------
+logs/*.log
+
+# Keep folder
+!logs/.gitkeep
+
+# -----------------------------
+# Uploaded Files
+# -----------------------------
+data/input/*
+data/output/*
+
+# Keep folders
 !data/input/.gitkeep
 !data/output/.gitkeep
 
-data/input/
-data/output/
+# -----------------------------
+# OS Files
+# -----------------------------
+Thumbs.db
+.DS_Store
+
+# -----------------------------
+# Secrets
+# -----------------------------
+*.pem
+*.key
+*.crt
+*.pfx
+
+github-recovery-codes.txt
+
+# -----------------------------
+# Executables
+# -----------------------------
+*.exe
+*.msi
