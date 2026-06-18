@@ -2,5 +2,15 @@ venv/
 __pycache__/
 *.pyc
 
+# Ignore uploaded/input files
+data/input/
+
+# Ignore exported/output files
+data/output/
+
+# Keep folder structure
+!data/input/.gitkeep
+!data/output/.gitkeep
+
 data/input/
 data/output/

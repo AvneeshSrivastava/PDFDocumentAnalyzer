@@ -1,20 +1,30 @@
-<!DOCTYPE html>
-<html>
+{% block content %}
 
-<head>
-    <title>Search Result</title>
-</head>
+<div class="container py-4">
 
-<body>
+    <div class="card shadow-sm p-3 mb-4 text-center">
 
-    <h1>Search Result</h1>
+        <h3>Search Result</h3>
 
-    <p>Keyword: {{ keyword }}</p>
+        <p><strong>Keyword:</strong> {{ keyword }}</p>
+        <p><strong>Occurrences:</strong> {{ count }}</p>
 
-    <p>Occurrences: {{ count }}</p>
+        <a href="/" class="btn btn-primary mt-2">
+            Upload Another PDF
+        </a>
 
-    <a href="/">Upload Another PDF</a>
+    </div>
 
-</body>
+    <div class="card shadow-sm p-3">
 
-</html>
+        <h5 class="mb-3">Highlighted Text</h5>
+
+        <div style="max-height: 70vh; overflow-y: auto; white-space: pre-wrap;">
+            {{ highlighted_text | safe }}
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
