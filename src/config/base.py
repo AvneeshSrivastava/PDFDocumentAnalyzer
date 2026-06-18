@@ -49,3 +49,10 @@ class BaseConfig:
         PROJECT_ROOT,
         "static"
     )
+
+    # File Upload Configuration
+    ALLOWED_FILE_EXTENSIONS = (
+        ".pdf",
+    )
+
+    MAX_FILE_SIZE_MB = 10
