@@ -1,0 +1,12 @@
+services:
+  pdf-document-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+
+    container_name: pdf-document-analyzer
+
+    ports:
+      - "8000:8000"
+
+    restart: unless-stopped
