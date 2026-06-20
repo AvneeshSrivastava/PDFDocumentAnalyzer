@@ -2,22 +2,99 @@
 
 {% block content %}
 
+<div id="loadingSpinner" class="d-none text-center mt-3">
+
+    <div class="spinner-border text-primary"></div>
+
+    <p class="mt-2">
+        Uploading PDF...
+    </p>
+
+</div>
 <div class="container">
 
-    <h2 class="mb-4">Upload PDF</h2>
+    <div class="mb-4">
+        <h2 class="fw-bold">PDF Document Analyzer</h2>
+        <p class="text-muted">
+            Upload a PDF document to extract text and search for keywords.
+        </p>
+    </div>
 
-    <div class="card shadow-sm p-4" style="max-width: 600px;">
+    <div class="row g-4">
 
-        <form action="/upload" method="post" enctype="multipart/form-data">
+        <!-- Upload Card -->
+        <div class="col-lg-6">
 
-            <label class="form-label">Select PDF</label>
-            <input class="form-control mb-3" type="file" name="pdf_file">
+            <div class="card shadow-sm h-100">
 
-            <button class="btn btn-primary w-100">
-                Upload & Analyze
-            </button>
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-upload me-2"></i>
+                    Upload PDF
+                </div>
 
-        </form>
+                <div class="card-body">
+
+                    <form action="/upload" method="post" enctype="multipart/form-data">
+
+                        <label class="form-label">
+                            Select PDF File
+                        </label>
+
+                        <input class="form-control mb-3" type="file" name="pdf_file" accept=".pdf">
+
+                        <button class="btn btn-primary w-100">
+                            Upload & Analyze
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Features Card -->
+        <div class="col-lg-6">
+
+            <div class="card shadow-sm h-100">
+
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-stars me-2"></i>
+                    Features
+                </div>
+
+                <div class="card-body">
+
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Extract text from PDF
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Search keywords
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Export extracted text
+                        </li>
+
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Production-ready FastAPI backend
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

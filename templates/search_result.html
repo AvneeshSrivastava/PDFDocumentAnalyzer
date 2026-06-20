@@ -1,30 +1,90 @@
+{% extends "base.html" %}
+
 {% block content %}
 
 <div class="container py-4">
 
-    <div class="card shadow-sm p-3 mb-4 text-center">
+    <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <h3>Search Result</h3>
+        <div>
+            <h2 class="fw-bold">
+                <i class="bi bi-search me-2"></i>
+                Search Results
+            </h2>
 
-        <p><strong>Keyword:</strong> {{ keyword }}</p>
-        <p><strong>Occurrences:</strong> {{ count }}</p>
+            <p class="text-muted mb-0">
+                Results for your keyword search.
+            </p>
+        </div>
 
-        <a href="/" class="btn btn-primary mt-2">
+        <a href="/" class="btn btn-outline-primary">
+            <i class="bi bi-arrow-repeat me-2"></i>
             Upload Another PDF
         </a>
 
     </div>
 
-    <div class="card shadow-sm p-3">
+    <div class="row g-3 mb-4">
 
-        <h5 class="mb-3">Highlighted Text</h5>
+        <div class="col-md-6">
 
-        <div style="max-height: 70vh; overflow-y: auto; white-space: pre-wrap;">
-            {{ highlighted_text | safe }}
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">Keyword</h6>
+
+                    <h4>{{ keyword }}</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <div class="card shadow-sm">
+
+                <div class="card-body">
+
+                    <h6 class="text-muted">Occurrences</h6>
+
+                    <h4>{{ count }}</h4>
+
+                </div>
+
+            </div>
+
         </div>
 
     </div>
+    <div class="card shadow-sm">
 
+        <div class="card-header d-flex justify-content-between align-items-center">
+
+            <h5 class="mb-0">
+                <i class="bi bi-file-earmark-text me-2"></i>
+                Document Preview
+            </h5>
+
+            <span class="badge bg-primary">
+                Search Results
+            </span>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="document-viewer">
+
+                {{ highlighted_text | safe }}
+
+            </div>
+
+        </div>
+
+    </div>
 </div>
 
 {% endblock %}

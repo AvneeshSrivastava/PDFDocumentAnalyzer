@@ -12,6 +12,7 @@ from src.services.pdf_service import (
 import re
 from src.config import settings
 from src.validators import validate_pdf
+from src.exceptions.custom_exceptions import PDFAnalyzerException
 
 
 # Temporary storage for extracted text
@@ -30,6 +31,17 @@ def home(reqest:Request):
         name="index.html"
     )
 
+@router.get("/upload")
+def search_page(request: Request):
+    return templates.TemplateResponse(
+        request=request,
+        name="error.html",
+        context={
+            "message": "Please upload a valid PDF.",
+            "show_sidebar": True
+        },
+        status_code=400
+    )
 @router.post("/upload")
 async def upload_pdf(
     request: Request,
@@ -68,10 +80,27 @@ async def upload_pdf(
         }
     )
 
+@router.get("/search")
+def search_page(request: Request):
+
+    return templates.TemplateResponse(
+        request=request,
+        name="error.html",
+        context={
+            "message": "Please upload a PDF before searching.",
+            "show_sidebar": True
+        },
+        status_code=400
+    )
+
 @router.post("/search")
 def search_keyword(request: Request, keyword: str = Form(...)):
 
     logger.info("Search Started.")
+    if not pdf_text:
+        raise PDFAnalyzerException(
+            "No PDF document is available. Please upload a PDF before searching."
+        )
     count = count_keyword_occurrences(pdf_text, keyword)
 
     highlighted_text = highlight_text(pdf_text, keyword)

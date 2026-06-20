@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="container-fluid">
+<div class="container">
 
     <h2 class="mb-4">📊 Document Analysis</h2>
 
@@ -11,24 +11,83 @@
         <!-- LEFT PANEL -->
         <div class="col-lg-4 col-12">
 
-            <div class="card p-3 mb-3 shadow-sm">
-                <h5>PDF Info</h5>
-                <p>Pages: {{ metadata.page_count }}</p>
-                <p>Size: {{ metadata.file_size_mb }} MB</p>
+            <div class="card shadow-sm mb-3">
+
+                <div class="card-header">
+                    <i class="bi bi-file-earmark-pdf me-2"></i>
+                    PDF Information
+                </div>
+
+                <div class="card-body">
+
+                    <div class="row">
+
+                        <div class="col-6">
+
+                            <small class="text-muted">
+                                Total Pages
+                            </small>
+
+                            <h4>
+                                {{ metadata.page_count }}
+                            </h4>
+
+                        </div>
+
+                        <div class="col-6">
+
+                            <small class="text-muted">
+                                File Size
+                            </small>
+
+                            <h4>
+                                {{ metadata.file_size_mb }} MB
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
-            <div class="card p-3 shadow-sm">
-                <h5>Keyword Search</h5>
+            <div class="card shadow-sm">
 
-                <form action="/search" method="post">
-                    <input class="form-control mb-2"
-                           name="keyword"
-                           placeholder="Search keyword">
+                <div class="card-header">
+                    <i class="bi bi-search me-2"></i>
+                    Keyword Search
+                </div>
 
-                    <button class="btn btn-primary w-100">
-                        Search
-                    </button>
-                </form>
+                <div class="card-body">
+
+                    <p class="text-muted small">
+                        Search for a keyword within the extracted PDF content.
+                    </p>
+
+                    <form action="/search" method="post">
+
+                        <div class="mb-3">
+
+                            <label class="form-label">
+                                Keyword
+                            </label>
+
+                            <input class="form-control" name="keyword" placeholder="e.g. Docker" required>
+
+                        </div>
+
+                        <button class="btn btn-primary w-100">
+
+                            <i class="bi bi-search me-2"></i>
+
+                            Search
+
+                        </button>
+
+                    </form>
+
+                </div>
 
             </div>
 
