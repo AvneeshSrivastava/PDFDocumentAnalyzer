@@ -7,3 +7,37 @@
         width: 100% !important;
     }
 }
+
+/* ===========================
+   Sidebar
+=========================== */
+
+#sidebar {
+    width: 250px;
+    transition: all 0.3s ease;
+    overflow: hidden;
+}
+
+#main-content {
+    transition: all 0.3s ease;
+}
+
+/* ===========================
+   Collapsed Sidebar
+=========================== */
+
+.sidebar-collapsed {
+    width: 80px !important;
+}
+
+.sidebar-collapsed h5 {
+    display: none;
+}
+
+.sidebar-collapsed a {
+    justify-content: center;
+}
+
+.sidebar-collapsed span {
+    display: none;
+}
