@@ -2,15 +2,6 @@
 
 {% block content %}
 
-<div id="loadingSpinner" class="d-none text-center mt-3">
-
-    <div class="spinner-border text-primary"></div>
-
-    <p class="mt-2">
-        Uploading PDF...
-    </p>
-
-</div>
 <div class="container">
 
     <div class="mb-4">
@@ -34,18 +25,25 @@
 
                 <div class="card-body">
 
-                    <form action="/upload" method="post" enctype="multipart/form-data">
-
+                    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
                         <label class="form-label">
                             Select PDF File
                         </label>
 
                         <input class="form-control mb-3" type="file" name="pdf_file" accept=".pdf">
-
-                        <button class="btn btn-primary w-100">
+                        <button id="uploadButton" class="btn btn-primary w-100">
                             Upload & Analyze
                         </button>
+                        <div id="uploadSpinner" class="text-center mt-3 d-none">
 
+                            <div class="spinner-border text-primary" role="status">
+                            </div>
+
+                            <p class="mt-2 text-muted">
+                                Uploading and analyzing PDF...
+                            </p>
+
+                        </div>
                     </form>
 
                 </div>
