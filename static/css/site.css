@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+    .d-flex {
+        flex-direction: column;
+    }
+
+    div[style*="width: 260px"] {
+        width: 100% !important;
+    }
+}
