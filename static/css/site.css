@@ -153,3 +153,55 @@ body {
     height:100%;
 
 }
+
+.document-viewer{
+    height: calc(100vh - 320px);
+
+    overflow-y: auto;
+
+    white-space: pre-wrap;
+    word-break: break-word;
+
+    font-family: Consolas, "Courier New", monospace;
+    line-height: 1.8;
+
+    padding: .5rem;
+}
+
+.card-header h4{
+    text-align:center;   /* heading centered */
+}
+
+.document-text{
+
+    white-space:pre-wrap;
+
+    font-family:Consolas, monospace;
+
+    line-height:1.8;
+
+}
+
+mark{
+
+    background:#fff3cd;
+
+    padding:2px 4px;
+
+    border-radius:4px;
+
+}
+
+.card{
+
+    border:none;
+
+    border-radius:12px;
+
+}
+
+.card-header{
+
+    font-weight:600;
+
+}

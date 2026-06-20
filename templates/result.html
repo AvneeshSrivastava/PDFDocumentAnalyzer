@@ -4,7 +4,7 @@
 
 <div class="container">
 
-    <h2 class="mb-4">📊 Document Analysis</h2>
+    <h2 class="mb-4">📊 PDF Analysis Dashboard</h2>
 
     <div class="row g-3">
 
@@ -13,67 +13,62 @@
 
             <div class="card shadow-sm mb-3">
 
-                <div class="card-header">
+                <div class="card-header fw-semibold">
                     <i class="bi bi-file-earmark-pdf me-2"></i>
                     PDF Information
                 </div>
 
                 <div class="card-body">
 
-                    <div class="row">
+                    <div class="row text-center">
 
-                        <div class="col-6">
+                        <div class="col-6 text-center">
 
-                            <small class="text-muted">
-                                Total Pages
-                            </small>
+                            <small class="text-muted">Pages</small>
 
-                            <h4>
+                            <h3 class="fw-bold">
                                 {{ metadata.page_count }}
-                            </h4>
+                            </h3>
 
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-6 text-center">
 
-                            <small class="text-muted">
-                                File Size
-                            </small>
+                            <small class="text-muted">Size</small>
 
-                            <h4>
+                            <h3 class="fw-bold text-nowrap">
                                 {{ metadata.file_size_mb }} MB
-                            </h4>
+                            </h3>
 
                         </div>
-
                     </div>
-
                 </div>
 
             </div>
 
             <div class="card shadow-sm">
 
-                <div class="card-header">
+                <div class="card-header fw-semibold">
+
                     <i class="bi bi-search me-2"></i>
-                    Keyword Search
+
+                    Search Keyword
+
                 </div>
 
                 <div class="card-body">
 
-                    <p class="text-muted small">
-                        Search for a keyword within the extracted PDF content.
+                    <p class="text-muted">
+
+                        Search any keyword inside the extracted PDF.
+
                     </p>
 
                     <form action="/search" method="post">
 
                         <div class="mb-3">
 
-                            <label class="form-label">
-                                Keyword
-                            </label>
-
-                            <input class="form-control" name="keyword" placeholder="e.g. Docker" required>
+                            <input class="form-control" name="keyword" placeholder="Enter keyword..." required>
 
                         </div>
 
@@ -96,13 +91,25 @@
         <!-- RIGHT PANEL -->
         <div class="col-lg-8 col-12">
 
-            <div class="card p-3 shadow-sm" style="height: 75vh; overflow-y: auto;">
+            <div class="card shadow-sm h-100">
 
-                <h5>Extracted Text</h5>
-                <hr>
+                <div class="card-header text-center">
 
-                <div style="white-space: pre-wrap;">
-                    {{ extracted_text }}
+                    <h4 class="fw-bold mb-0">
+                        <i class="bi bi-file-text me-2"></i>
+                        Extracted Text
+                    </h4>
+
+                </div>
+
+                <div class="card-body">
+
+                    <div class="document-viewer">
+
+                        {{ extracted_text }}
+
+                    </div>
+
                 </div>
 
             </div>
