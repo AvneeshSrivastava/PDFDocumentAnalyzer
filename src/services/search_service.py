@@ -1,7 +1,6 @@
 from src.exceptions import KeywordSearchException
 from src.logging import logger
 
-
 def count_keyword_occurrences(
     text: str,
     keyword: str

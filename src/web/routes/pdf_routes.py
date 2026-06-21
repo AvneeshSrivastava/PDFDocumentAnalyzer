@@ -27,7 +27,6 @@ templates = Jinja2Templates(
     directory=settings.TEMPLATE_FOLDER
 )
 
-
 # ==========================================================
 # Home Page
 # ==========================================================
@@ -39,7 +38,6 @@ def home(request: Request):
         request=request,
         name="index.html"
     )
-
 
 # ==========================================================
 # Handle Direct Access to Upload Endpoint
@@ -57,7 +55,6 @@ def upload_page_error(request: Request):
         },
         status_code=400
     )
-
 
 # ==========================================================
 # Upload PDF
@@ -110,7 +107,6 @@ async def upload_pdf(
         }
     )
 
-
 # ==========================================================
 # Handle Direct Access to Search Endpoint
 # ==========================================================
@@ -127,7 +123,6 @@ def search_error_page(request: Request):
         },
         status_code=400
     )
-
 
 # ==========================================================
 # Search Keyword
@@ -171,7 +166,6 @@ def search_keyword(
             "highlighted_text": highlighted_text
         }
     )
-
 
 # ==========================================================
 # Highlight Search Results

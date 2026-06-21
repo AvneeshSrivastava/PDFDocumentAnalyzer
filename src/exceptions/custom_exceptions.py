@@ -22,7 +22,6 @@ class PDFAnalyzerException(Exception):
 
     pass
 
-
 class InvalidPDFException(PDFAnalyzerException):
     """
     Raised when an uploaded file is not a valid PDF.
@@ -35,7 +34,6 @@ class InvalidPDFException(PDFAnalyzerException):
     """
 
     pass
-
 
 class FileStorageException(PDFAnalyzerException):
     """
@@ -50,7 +48,6 @@ class FileStorageException(PDFAnalyzerException):
 
     pass
 
-
 class PDFExtractionException(PDFAnalyzerException):
     """
     Raised when text extraction from a PDF document fails.
@@ -63,7 +60,6 @@ class PDFExtractionException(PDFAnalyzerException):
     """
 
     pass
-
 
 class KeywordSearchException(PDFAnalyzerException):
     """
