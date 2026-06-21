@@ -1,28 +1,63 @@
+// ==========================================================
+// PDF Document Analyzer
+// Client-side JavaScript
+//
+// Responsibilities:
+// 1. Sidebar expand/collapse
+// 2. Upload spinner
+// 3. Prevent multiple form submissions
+// ==========================================================
+
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Sidebar
-    const sidebarBtn = document.getElementById("sidebar-toggle");
+    // ======================================================
+    // Sidebar Toggle
+    // ======================================================
+
+    const sidebarButton = document.getElementById("sidebar-toggle");
     const sidebar = document.getElementById("sidebar");
 
-    if (sidebarBtn && sidebar) {
+    if (sidebarButton && sidebar) {
 
-        sidebarBtn.addEventListener("click", function () {
+        sidebarButton.addEventListener("click", function () {
 
+            // Toggle collapsed state
             sidebar.classList.toggle("sidebar-collapsed");
 
         });
 
     }
 
-    // Upload Spinner
-    const form = document.getElementById("uploadForm");
-    const spinner = document.getElementById("uploadSpinner");
+    // ======================================================
+    // Upload Form
+    // ======================================================
 
-    if (form && spinner) {
+    const uploadForm = document.getElementById("uploadForm");
+    const uploadSpinner = document.getElementById("uploadSpinner");
+    const uploadButton = document.getElementById("uploadButton");
 
-        form.addEventListener("submit", function () {
+    if (uploadForm && uploadSpinner) {
 
-            spinner.classList.remove("d-none");
+        uploadForm.addEventListener("submit", function () {
+
+            // ----------------------------------------------
+            // Show loading spinner
+            // ----------------------------------------------
+
+            uploadSpinner.classList.remove("d-none");
+
+            // ----------------------------------------------
+            // Prevent multiple uploads
+            // ----------------------------------------------
+
+            if (uploadButton) {
+
+                uploadButton.disabled = true;
+
+                uploadButton.innerHTML =
+                    '<i class="bi bi-hourglass-split me-2"></i>Processing...';
+
+            }
 
         });
 
@@ -30,21 +65,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
-const uploadButton = document.getElementById("uploadButton");
+// ======================================================
+// Bootstrap Tooltips
+// ======================================================
 
-if (form && spinner) {
+// ==========================================================
+// Tooltips (Only when sidebar is collapsed)
+// ==========================================================
 
-    form.addEventListener("submit", function () {
+const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 
-        spinner.classList.remove("d-none");
+tooltips.forEach(function (element) {
 
-        if (uploadButton) {
+    new bootstrap.Tooltip(element, {
 
-            uploadButton.disabled = true;
-            uploadButton.innerText = "Processing...";
+        trigger: "hover"
+
+    });
+
+});
+
+sidebarButton.addEventListener("click", function () {
+
+    sidebar.classList.toggle("sidebar-collapsed");
+
+    tooltips.forEach(function (element) {
+
+        if (sidebar.classList.contains("sidebar-collapsed")) {
+
+            element.setAttribute("data-bs-original-title", element.title);
+
+        } else {
+
+            bootstrap.Tooltip.getInstance(element)?.hide();
 
         }
 
     });
 
-}
+});

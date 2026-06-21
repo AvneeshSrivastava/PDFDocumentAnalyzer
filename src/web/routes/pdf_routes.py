@@ -1,38 +1,53 @@
-from fastapi import Form
-from src.services.search_service import count_keyword_occurrences
-from fastapi import APIRouter, Request, UploadFile, File
+import re
+
+from fastapi import APIRouter, File, Form, Request, UploadFile
 from fastapi.templating import Jinja2Templates
+
+from src.config import settings
+from src.exceptions import PDFAnalyzerException
 from src.logging import logger
 from src.services.file_service import save_uploaded_file
 from src.services.pdf_service import (
     extract_text_from_pdf,
     get_pdf_metadata
 )
-
-import re
-from src.config import settings
+from src.services.search_service import count_keyword_occurrences
 from src.validators import validate_pdf
-from src.exceptions.custom_exceptions import PDFAnalyzerException
 
+# ==========================================================
+# Global Variables
+# ==========================================================
 
-# Temporary storage for extracted text
-pdf_text = ""
+# Temporarily stores extracted PDF text for keyword searching.
+pdf_text: str = ""
+
 router = APIRouter()
 
 templates = Jinja2Templates(
     directory=settings.TEMPLATE_FOLDER
 )
 
+
+# ==========================================================
+# Home Page
+# ==========================================================
+
 @router.get("/")
-def home(reqest:Request):
+def home(request: Request):
 
     return templates.TemplateResponse(
-        request=reqest,
+        request=request,
         name="index.html"
     )
 
+
+# ==========================================================
+# Handle Direct Access to Upload Endpoint
+# ==========================================================
+
 @router.get("/upload")
-def search_page(request: Request):
+def upload_page_error(request: Request):
+
     return templates.TemplateResponse(
         request=request,
         name="error.html",
@@ -42,18 +57,31 @@ def search_page(request: Request):
         },
         status_code=400
     )
+
+
+# ==========================================================
+# Upload PDF
+# ==========================================================
+
 @router.post("/upload")
 async def upload_pdf(
     request: Request,
     pdf_file: UploadFile = File(...)
 ):
-    logger.info("PDF upload request received.")
-    content = await pdf_file.read()
-    validate_pdf(
-    uploaded_file=pdf_file,
-    content=content
+
+    logger.info(
+        "PDF upload request received."
     )
+
+    content = await pdf_file.read()
+
+    validate_pdf(
+        uploaded_file=pdf_file,
+        content=content
+    )
+
     global pdf_text
+
     file_path = save_uploaded_file(
         pdf_file.filename,
         content
@@ -63,14 +91,16 @@ async def upload_pdf(
         file_path
     )
 
-    # Store extracted text for keyword search
     pdf_text = extracted_text
 
-    # Get PDF metadata such as page count and file size
     metadata = get_pdf_metadata(
-    file_path
+        file_path
     )
-    logger.info("Returning extraction result page.")
+
+    logger.info(
+        "Returning extraction result page."
+    )
+
     return templates.TemplateResponse(
         request=request,
         name="result.html",
@@ -80,8 +110,13 @@ async def upload_pdf(
         }
     )
 
+
+# ==========================================================
+# Handle Direct Access to Search Endpoint
+# ==========================================================
+
 @router.get("/search")
-def search_page(request: Request):
+def search_error_page(request: Request):
 
     return templates.TemplateResponse(
         request=request,
@@ -93,19 +128,40 @@ def search_page(request: Request):
         status_code=400
     )
 
-@router.post("/search")
-def search_keyword(request: Request, keyword: str = Form(...)):
 
-    logger.info("Search Started.")
+# ==========================================================
+# Search Keyword
+# ==========================================================
+
+@router.post("/search")
+def search_keyword(
+    request: Request,
+    keyword: str = Form(...)
+):
+
+    logger.info(
+        "Keyword search started."
+    )
+
     if not pdf_text:
         raise PDFAnalyzerException(
             "No PDF document is available. Please upload a PDF before searching."
         )
-    count = count_keyword_occurrences(pdf_text, keyword)
 
-    highlighted_text = highlight_text(pdf_text, keyword)
+    count = count_keyword_occurrences(
+        pdf_text,
+        keyword
+    )
 
-    logger.info("Search completed.")
+    highlighted_text = highlight_text(
+        pdf_text,
+        keyword
+    )
+
+    logger.info(
+        "Keyword search completed."
+    )
+
     return templates.TemplateResponse(
         request=request,
         name="search_result.html",
@@ -116,8 +172,33 @@ def search_keyword(request: Request, keyword: str = Form(...)):
         }
     )
 
-def highlight_text(text: str, keyword: str):
-    logger.info("Text highliting Started.")
-    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
-    logger.info("Text highliting Completed.")
-    return pattern.sub(r"<mark>\g<0></mark>", text)
+
+# ==========================================================
+# Highlight Search Results
+# ==========================================================
+
+def highlight_text(
+    text: str,
+    keyword: str
+) -> str:
+    """
+    Highlight all occurrences of a keyword in the extracted text.
+    """
+
+    logger.info(
+        "Text highlighting started."
+    )
+
+    pattern = re.compile(
+        re.escape(keyword),
+        re.IGNORECASE
+    )
+
+    logger.info(
+        "Text highlighting completed."
+    )
+
+    return pattern.sub(
+        r"<mark>\g<0></mark>",
+        text
+    )

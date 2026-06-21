@@ -1,47 +1,49 @@
-/* ===================================
-    Global
-=================================== */
-
+/* ==========================================================
+   Global Styles
+========================================================== */
 html,
 body {
-
-    height: 100%;
+    height: 100vh;
     margin: 0;
+    padding: 0;
     overflow: hidden;
-
-    font-family: Segoe UI, sans-serif;
-
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* ===================================
-    Layout
-=================================== */
+body {
+    position: relative;
+}
 
+/* ==========================================================
+   Application Layout
+========================================================== */
 #layout {
-
+    position: absolute;
+    top: 56px;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-
-    height: calc(100vh - 56px);
-
+    width: 100%;
+    overflow: hidden;
 }
-
-/* ===================================
-    Sidebar
-=================================== */
+/* ==========================================================
+   Sidebar
+========================================================== */
 
 #sidebar {
 
     width: 250px;
 
+    flex-shrink: 0;
+
     background: #212529;
 
     color: white;
 
-    padding: 25px;
+    padding: 16px;
 
-    transition: 0.3s;
-
-    flex-shrink: 0;
+    transition: width .3s ease;
 
 }
 
@@ -52,18 +54,13 @@ body {
 }
 
 #sidebar.sidebar-collapsed {
-
-    width: 80px;
-
+    width: 72px;
+    padding: 16px 8px;
 }
 
+#sidebar.sidebar-collapsed h4,
+#sidebar.sidebar-collapsed h5,
 #sidebar.sidebar-collapsed span {
-
-    display: none;
-
-}
-
-#sidebar.sidebar-collapsed h4 {
 
     display: none;
 
@@ -71,137 +68,247 @@ body {
 
 #sidebar.sidebar-collapsed a {
 
-    text-align: center;
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: .75rem;
 
 }
 
 #sidebar.sidebar-collapsed i {
-
-    margin-right: 0 !important;
-
+    margin: 0 !important;
+    font-size: 1.1rem;
 }
 
-/* ===================================
-    Main
-=================================== */
-
+/* ==========================================================
+   Main Content
+========================================================== */
 #main-content {
-
     flex: 1;
-
+    min-height: 0;
+    height: 100%;
     overflow-y: auto;
-
-    padding: 30px;
-
+    padding: 20px;
     background: #f8f9fa;
-
+    box-sizing: border-box;
 }
 
-/* ===================================
-    Cards
-=================================== */
+#main-content > .container-fluid {
+    height: 100%;
+}
+
+/* ==========================================================
+   Cards
+========================================================== */
 
 .card {
 
+    border: none;
+
     border-radius: 12px;
+
+    transition: box-shadow .20s ease;
 
 }
 
-/* ===================================
-    Document Viewer
-=================================== */
+.card-header {
+
+    font-weight: 600;
+
+}
+
+.card-header h4 {
+
+    margin: 0;
+
+    text-align: center;
+
+}
+
+/* ==========================================================
+   Document Viewer
+========================================================== */
 
 .document-viewer {
 
-    height: 65vh;
+    min-height: 200px;
 
-    overflow: auto;
+    max-height: calc(100vh - 251px);
 
-    white-space: pre-wrap;
+    overflow-y: auto;
 
-    background: white;
+    padding: 1rem;
 
-    border: 1px solid #ddd;
+    background: #fff;
+
+    border: 1px solid #dee2e6;
 
     border-radius: 10px;
 
-    padding: 20px;
+    white-space: pre-wrap;
 
-    font-family: Consolas, monospace;
+    word-break: break-word;
+
+    line-height: 1.8;
+
+    font-family: Consolas, "Courier New", monospace;
 
 }
 
-/* ===================================
-    Mobile
-=================================== */
+/* ==========================================================
+   Reusable Monospace Text
+========================================================== */
 
-@media(max-width:768px) {
+.document-text,
+.text-monospace-document {
+
+    white-space: pre-wrap;
+
+    line-height: 1.8;
+
+    font-family: Consolas, "Courier New", monospace;
+
+}
+
+/* ==========================================================
+   Highlighted Search Results
+========================================================== */
+
+mark {
+
+    padding: 2px 4px;
+
+    background: #fff3cd;
+
+    border-radius: 4px;
+
+    font-weight: 600;
+
+}
+
+/* ==========================================================
+   Error Page
+========================================================== */
+
+.error-page {
+
+    height: 100%;
+
+}
+
+/* ==========================================================
+   Responsive Layout
+========================================================== */
+
+@media (max-width: 768px) {
 
     #sidebar {
 
         position: absolute;
 
+        left: 0;
+
+        top: 56px;
+
         z-index: 1000;
 
-        height: 100%;
+        height: calc(100vh - 56px);
 
     }
 
 }
-.error-page{
 
-    height:100%;
+.sidebar-title {
+
+    opacity: 1;
+
+    transition: opacity .2s ease;
+}
+
+#sidebar .btn {
+
+    display: flex;
+
+    align-items: center;
+
+    padding: 10px 12px;
 
 }
 
-.document-viewer{
-    height: calc(100vh - 320px);
+.sidebar-title {
 
-    overflow-y: auto;
+    margin-bottom: 24px;
 
-    white-space: pre-wrap;
-    word-break: break-word;
-
-    font-family: Consolas, "Courier New", monospace;
-    line-height: 1.8;
-
-    padding: .5rem;
-}
-
-.card-header h4{
-    text-align:center;   /* heading centered */
-}
-
-.document-text{
-
-    white-space:pre-wrap;
-
-    font-family:Consolas, monospace;
-
-    line-height:1.8;
+    padding-left: 12px;
 
 }
 
-mark{
+#sidebar.sidebar-collapsed .sidebar-title {
 
-    background:#fff3cd;
+    opacity: 0;
 
-    padding:2px 4px;
-
-    border-radius:4px;
+    display: none;
 
 }
 
-.card{
+#sidebar.sidebar-collapsed .btn {
 
-    border:none;
+    justify-content: center;
 
-    border-radius:12px;
+    padding: 10px 0;
 
 }
 
-.card-header{
+/* Navbar toggle button */
+.sidebar-toggle-btn {
 
-    font-weight:600;
+    width: 44px;
 
+    height: 44px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 0;
+
+}
+
+/* Sidebar collapsed buttons */
+#sidebar.sidebar-collapsed .btn {
+
+    width: 44px;
+
+    height: 44px;
+
+    margin: 0 auto 10px;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 0;
+
+}
+
+.card-body {
+
+    overflow: visible;
+
+}
+
+/* Equal height dashboard cards */
+.col-lg-4 .card:last-child {
+    flex: 1;
+}
+
+.col-lg-8 .card {
+    flex: 1;
 }

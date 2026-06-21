@@ -1,123 +1,102 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="container">
-
-    <h2 class="mb-4">📊 PDF Analysis Dashboard</h2>
-
+<div class="container-fluid">
+    <!-- ==========================================================
+     Page Header
+=========================================================== -->
+    <div class="mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-bar-chart-line me-2"></i>
+            PDF Analysis Dashboard
+        </h2>
+        <p class="text-muted mb-0">
+            Review the extracted document information and search for keywords.
+        </p>
+    </div>
     <div class="row g-3">
-
-        <!-- LEFT PANEL -->
+        <!-- ======================================================
+         Left Panel
+    ======================================================= -->
         <div class="col-lg-4 col-12">
-
+            <!-- ==================================================
+             PDF Information Card
+        =================================================== -->
             <div class="card shadow-sm mb-3">
-
                 <div class="card-header fw-semibold">
                     <i class="bi bi-file-earmark-pdf me-2"></i>
                     PDF Information
                 </div>
-
                 <div class="card-body">
-
                     <div class="row text-center">
-
-                        <div class="col-6 text-center">
-
-                            <small class="text-muted">Pages</small>
-
+                        <div class="col-6">
+                            <small class="text-muted">
+                                Total Pages
+                            </small>
                             <h3 class="fw-bold">
                                 {{ metadata.page_count }}
                             </h3>
-
                         </div>
-
-                        <div class="col-6 text-center">
-
-                            <small class="text-muted">Size</small>
-
+                        <div class="col-6">
+                            <small class="text-muted">
+                                File Size
+                            </small>
                             <h3 class="fw-bold text-nowrap">
                                 {{ metadata.file_size_mb }} MB
                             </h3>
-
                         </div>
                     </div>
                 </div>
-
             </div>
-
+            <!-- ==================================================
+             Keyword Search Card
+        =================================================== -->
             <div class="card shadow-sm">
-
                 <div class="card-header fw-semibold">
-
                     <i class="bi bi-search me-2"></i>
-
-                    Search Keyword
-
+                    Keyword Search
                 </div>
-
                 <div class="card-body">
-
                     <p class="text-muted">
-
-                        Search any keyword inside the extracted PDF.
-
+                        Search for any word or phrase within the extracted PDF content.
                     </p>
-
                     <form action="/search" method="post">
-
                         <div class="mb-3">
-
-                            <input class="form-control" name="keyword" placeholder="Enter keyword..." required>
-
+                            <label for="keyword" class="form-label fw-semibold">
+                                Keyword
+                            </label>
+                            <input id="keyword" class="form-control" type="text" name="keyword"
+                                placeholder="Enter keyword..." required>
                         </div>
-
-                        <button class="btn btn-primary w-100">
-
+                        <button type="submit" class="btn btn-primary w-100">
                             <i class="bi bi-search me-2"></i>
-
                             Search
-
                         </button>
-
                     </form>
-
                 </div>
-
             </div>
-
         </div>
-
-        <!-- RIGHT PANEL -->
+        <!-- ======================================================
+         Right Panel
+    ======================================================= -->
         <div class="col-lg-8 col-12">
-
-            <div class="card shadow-sm h-100">
-
+            <div class="card shadow-sm">
                 <div class="card-header text-center">
-
                     <h4 class="fw-bold mb-0">
                         <i class="bi bi-file-text me-2"></i>
                         Extracted Text
                     </h4>
-
                 </div>
-
                 <div class="card-body">
-
+                    <!-- ==========================================
+                     Extracted Document Viewer
+                =========================================== -->
                     <div class="document-viewer">
-
                         {{ extracted_text }}
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
-
 {% endblock %}
