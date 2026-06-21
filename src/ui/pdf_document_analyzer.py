@@ -52,7 +52,7 @@ def select_pdf():
     global selected_pdf 
     selected_pdf = filedialog.askopenfilename(
         filetypes=[("PDF Files", "*.pdf")]   # fixed tuple syntax
-    )  
+    )
     if not selected_pdf:
         return
     
@@ -64,11 +64,10 @@ def select_pdf():
         "PDF size should be less than 10 MB"
     )
         return
-     
+
     reader = PdfReader(selected_pdf)
     page_count=len(reader.pages)
-    size_mb=round(os.path.getsize(selected_pdf)/(1024*1024),2) 
-     
+    size_mb=round(os.path.getsize(selected_pdf)/(1024*1024),2)
     info_lable.config(text=f"Pages : {page_count} |    Size: {size_mb} MB")
     if selected_pdf:
         file_lable.config(text=selected_pdf)

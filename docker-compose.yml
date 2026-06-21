@@ -1,5 +1,15 @@
+# ==========================================================
+# Docker Compose Configuration
+# ==========================================================
+
 services:
+
+  # ========================================================
+  # PDF Document Analyzer Service
+  # ========================================================
+
   pdf-document-analyzer:
+
     build:
       context: .
       dockerfile: Dockerfile
@@ -10,3 +20,6 @@ services:
       - "8000:8000"
 
     restart: unless-stopped
+
+    environment:
+      PYTHONUNBUFFERED: 1

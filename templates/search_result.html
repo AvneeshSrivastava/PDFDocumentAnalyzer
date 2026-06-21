@@ -1,30 +1,95 @@
+{% extends "base.html" %}
 {% block content %}
-
-<div class="container py-4">
-
-    <div class="card shadow-sm p-3 mb-4 text-center">
-
-        <h3>Search Result</h3>
-
-        <p><strong>Keyword:</strong> {{ keyword }}</p>
-        <p><strong>Occurrences:</strong> {{ count }}</p>
-
-        <a href="/" class="btn btn-primary mt-2">
-            Upload Another PDF
-        </a>
-
+<div class="container-fluid">
+    <!-- ==========================================================
+     Page Header
+=========================================================== -->
+    <div class="mb-4">
+        <h2 class="fw-bold">
+            <i class="bi bi-search me-2"></i>
+            Search Results
+        </h2>
+        <p class="text-muted mb-0">
+            Review the keyword search results within the extracted PDF document.
+        </p>
     </div>
-
-    <div class="card shadow-sm p-3">
-
-        <h5 class="mb-3">Highlighted Text</h5>
-
-        <div style="max-height: 70vh; overflow-y: auto; white-space: pre-wrap;">
-            {{ highlighted_text | safe }}
+    <div class="row g-3">
+        <!-- ======================================================
+         Left Panel
+    ======================================================= -->
+        <div class="col-lg-4">
+            <!-- ==================================================
+             Search Summary Card
+        =================================================== -->
+            <div class="card shadow-sm mb-3">
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-bar-chart me-2"></i>
+                    Search Summary
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Keyword</span>
+                        <strong>
+                            {{ keyword }}
+                        </strong>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span>Matches Found</span>
+                        <span class="badge bg-success fs-6">
+                            {{ count }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- ==================================================
+             Search Again Card
+        =================================================== -->
+            <div class="card shadow-sm">
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-search me-2"></i>
+                    Search Again
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">
+                        Search for another keyword within the same PDF document.
+                    </p>
+                    <form action="/search" method="post">
+                        <div class="mb-3">
+                            <label for="keyword" class="form-label fw-semibold">
+                                Keyword
+                            </label>
+                            <input id="keyword" type="text" class="form-control" name="keyword"
+                                placeholder="Enter keyword..." required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-search me-2"></i>
+                            Search
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
+        <!-- ======================================================
+         Right Panel
+    ======================================================= -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header text-center">
+                    <h4 class="fw-bold mb-0">
+                        <i class="bi bi-file-earmark-text me-2"></i>
+                        Document Preview
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <!-- ==========================================
+                     Highlighted Document Viewer
+                =========================================== -->
+                    <div class="document-viewer">
+                        {{ highlighted_text | safe }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
-
 {% endblock %}

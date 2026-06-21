@@ -1,10 +1,30 @@
 from fastapi import APIRouter
 
-router= APIRouter()
+# ==========================================================
+# Router Configuration
+# ==========================================================
 
-@router.get("/health",tags=["Health"])
-async def health_check():
-     """ Health check endpoint. """
-     return {
+router = APIRouter()
+
+
+# ==========================================================
+# Health Check Endpoint
+# ==========================================================
+
+@router.get(
+    "/health",
+    tags=["Health"]
+)
+async def health_check() -> dict:
+    """
+    Check whether the application is running successfully.
+
+    Returns
+    -------
+    dict
+        Application health status.
+    """
+
+    return {
         "status": "healthy"
     }
