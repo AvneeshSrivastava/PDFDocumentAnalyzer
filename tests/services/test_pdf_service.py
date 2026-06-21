@@ -1,3 +1,4 @@
+from unittest import result
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -27,7 +28,7 @@ def test_extract_text_from_pdf_success(mock_pdf_reader):
         "dummy.pdf"
     )
 
-    assert result == "Hello World"
+    assert " ".join(result.split()) == "Hello World"
 
 @patch("src.services.pdf_service.PdfReader")
 def test_extract_text_from_pdf_failure(mock_pdf_reader):

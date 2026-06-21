@@ -1,5 +1,5 @@
 from src.config.base import BaseConfig
 
 
-# Application settings
+# Global application settings instance.
 settings = BaseConfig()

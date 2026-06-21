@@ -1,26 +1,86 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="container">
-
-    <h2 class="mb-4">Upload PDF</h2>
-
-    <div class="card shadow-sm p-4" style="max-width: 600px;">
-
-        <form action="/upload" method="post" enctype="multipart/form-data">
-
-            <label class="form-label">Select PDF</label>
-            <input class="form-control mb-3" type="file" name="pdf_file">
-
-            <button class="btn btn-primary w-100">
-                Upload & Analyze
-            </button>
-
-        </form>
-
+<div class="container-fluid">
+    <!-- ==========================================================
+         Page Header
+    =========================================================== -->
+    <div class="mb-4">
+        <h2 class="fw-bold">PDF Document Analyzer</h2>
+        <p class="text-muted">
+            Upload a PDF document to extract text, analyze its contents, and search for keywords.
+        </p>
     </div>
-
+    <div class="row g-4">
+        <!-- ======================================================
+             Upload PDF Card
+        ======================================================= -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-upload me-2"></i>
+                    Upload PDF
+                </div>
+                <div class="card-body">
+                    <form id="uploadForm" action="/upload" method="post" enctype="multipart/form-data">
+                        <!-- PDF Selection -->
+                        <div class="mb-3">
+                            <label for="pdf_file" class="form-label fw-semibold">
+                                Select PDF File
+                            </label>
+                            <input id="pdf_file" class="form-control" type="file" name="pdf_file" accept=".pdf"
+                                required>
+                            <div class="form-text">
+                                Supported file type: PDF
+                            </div>
+                        </div>
+                        <!-- Upload Button -->
+                        <button id="uploadButton" type="submit" class="btn btn-primary w-100">
+                            <i class="bi bi-upload me-2"></i>
+                            Upload & Analyze
+                        </button>
+                        <!-- Upload Spinner -->
+                        <div id="uploadSpinner" class="text-center mt-4 d-none">
+                            <div class="spinner-border text-primary" role="status" aria-hidden="true"></div>
+                            <p class="mt-3 text-muted">
+                                Uploading and analyzing PDF...
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- ======================================================
+             Application Features
+        ======================================================= -->
+        <div class="col-lg-6">
+            <div class="card shadow-sm">
+                <div class="card-header fw-semibold">
+                    <i class="bi bi-stars me-2"></i>
+                    Features
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Extract text from PDF documents
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Search keywords with highlighted results
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            View PDF metadata
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success me-2"></i>
+                            Production-ready FastAPI backend
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
 {% endblock %}

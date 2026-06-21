@@ -1,1 +1,1 @@
-from .file_validator import validate_pdf
+from .file_validator import validate_pdf as validate_pdf
